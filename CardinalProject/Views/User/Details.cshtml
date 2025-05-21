@@ -1,0 +1,38 @@
+﻿@model CardinalProject.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h2>User Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.Name) ? "-" : Model.Name)</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.Email) ? "-" : Model.Email)</dd>
+
+            <dt class="col-sm-3">Phone Number</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "-" : Model.PhoneNumber)</dd>
+
+            <dt class="col-sm-3">Department</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.Department) ? "-" : Model.Department)</dd>
+
+            <dt class="col-sm-3">Hospital</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.HospitalName) ? "-" : Model.HospitalName)</dd>
+
+            <dt class="col-sm-3">Role</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.RoleName) ? "-" : Model.RoleName)</dd>
+
+            <dt class="col-sm-3">Active</dt>
+            <dd class="col-sm-9">@(Model.IsActive ? "Yes" : "No")</dd>
+
+        </dl>
+
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-action="EditUser" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    </div>
+</div>

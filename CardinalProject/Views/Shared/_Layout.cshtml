@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,6 +13,9 @@
 <body>
     @if (User.Identity != null && User.Identity.IsAuthenticated)
     {
+        var roleIdClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+        int.TryParse(roleIdClaim, out int roleId);
+
         <header>
             <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container-fluid">
@@ -22,10 +27,13 @@
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
-                            <!-- Add more tabs here if needed -->
+                            @* Show Users tab only if role is Superadmin (4), Hospital Admin (3), or Department Admin (2) *@
+                            @if (roleId >= 2)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                </li>
+                            }
                         </ul>
 
                         <div class="d-flex align-items-center">

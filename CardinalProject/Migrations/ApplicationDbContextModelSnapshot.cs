@@ -58,6 +58,30 @@ namespace CardinalProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hospitals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local),
+                            CreatedBy = "System",
+                            IsActive = true,
+                            Name = "St. Mary’s Hospital",
+                            PhoneNumber = "111-222-3333",
+                            UpdatedAt = new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local),
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local),
+                            CreatedBy = "System",
+                            IsActive = true,
+                            Name = "General City Hospital",
+                            PhoneNumber = "4444444444",
+                            UpdatedAt = new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local),
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("CardinalProject.Models.LogSearch", b =>
@@ -569,6 +593,10 @@ namespace CardinalProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HospitalId");
+
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Users");
 
                     b.HasData(
@@ -625,6 +653,23 @@ namespace CardinalProject.Migrations
                             Id = 4,
                             Name = "Super Admin"
                         });
+                });
+
+            modelBuilder.Entity("CardinalProject.Models.User", b =>
+                {
+                    b.HasOne("CardinalProject.Models.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("HospitalId");
+
+                    b.HasOne("CardinalProject.Models.UserRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hospital");
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

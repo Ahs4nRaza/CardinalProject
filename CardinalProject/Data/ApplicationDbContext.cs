@@ -51,6 +51,33 @@ namespace CardinalProject.Data
                 new Section { Id = 2, Name = SectionConstants.Information }
             );
 
+            // Seed Hospitals
+            modelBuilder.Entity<Hospital>().HasData(
+                new Hospital
+                {
+                    Id = 1,
+                    Name = "St. Mary’s Hospital",
+                    PhoneNumber = "111-222-3333",
+                    IsActive = true,
+                    CreatedAt = DateTime.Parse(todayString),
+                    CreatedBy = "System",
+                    UpdatedAt = DateTime.Parse(todayString),
+                    UpdatedBy = "System"
+                },
+                new Hospital
+                {
+                    Id = 2,
+                    Name = "General City Hospital",
+                    PhoneNumber = "4444444444",
+                    IsActive = true,
+                    CreatedAt = DateTime.Parse(todayString),
+                    CreatedBy = "System",
+                    UpdatedAt = DateTime.Parse(todayString),
+                    UpdatedBy = "System"
+                }
+            );
+
+
             // Seed SuperAdmin User
             modelBuilder.Entity<User>().HasData(
                 new User

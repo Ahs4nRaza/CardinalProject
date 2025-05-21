@@ -31,10 +31,17 @@ namespace CardinalProject
                 });
 
             builder.Services.AddAuthorization();
-
+        
+            
             // Add application services and repositories
+            builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+            builder.Services.AddScoped<IHospitalService, HospitalService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             // Add controllers with views support
             builder.Services.AddControllersWithViews();
@@ -59,7 +66,7 @@ namespace CardinalProject
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

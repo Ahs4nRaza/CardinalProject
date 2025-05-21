@@ -1,0 +1,30 @@
+﻿@model CardinalProject.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Delete User";
+}
+
+<h2>Delete User</h2>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete this user?
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@(string.IsNullOrWhiteSpace(Model.Name) ? "-" : Model.Name)</h5>
+        <p class="card-text">
+            <strong>Email:</strong> @(string.IsNullOrWhiteSpace(Model.Email) ? "-" : Model.Email) <br />
+            <strong>Phone:</strong> @(string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "-" : Model.PhoneNumber) <br />
+            <strong>Department:</strong> @(string.IsNullOrWhiteSpace(Model.Department) ? "-" : Model.Department) <br />
+            <strong>Hospital:</strong> @(string.IsNullOrWhiteSpace(Model.HospitalName) ? "-" : Model.HospitalName) <br />
+            <strong>Role:</strong> @(string.IsNullOrWhiteSpace(Model.RoleName) ? "-" : Model.RoleName) <br />
+        </p>
+    </div>
+</div>
+
+<form asp-action="ConfirmDeleteUser" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

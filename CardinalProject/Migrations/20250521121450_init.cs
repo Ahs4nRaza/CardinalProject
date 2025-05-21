@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CardinalProject.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -278,6 +278,26 @@ namespace CardinalProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Hospitals_HospitalId",
+                        column: x => x.HospitalId,
+                        principalTable: "Hospitals",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Users_UserRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "UserRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Hospitals",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "IsActive", "Name", "PhoneNumber", "UpdatedAt", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local), "System", true, "St. Mary’s Hospital", "111-222-3333", new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local), "System" },
+                    { 2, new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local), "System", true, "General City Hospital", "4444444444", new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local), "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -315,14 +335,21 @@ namespace CardinalProject.Migrations
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "CreatedBy", "Department", "Email", "HospitalId", "IsActive", "Name", "PasswordHash", "PhoneNumber", "RoleId", "UpdatedAt", "UpdatedBy" },
                 values: new object[] { 1, new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local), "System", null, "admin@cardinal.com", null, true, "System Administrator", "$2a$12$bYNwbN2MMkAg8iE.J7Y2d.sGRY..z/9p/N/W2Z/YNxRMvws7ny98u", "1234567890", 4, new DateTime(2025, 5, 21, 5, 0, 0, 0, DateTimeKind.Local), "System" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_HospitalId",
+                table: "Users",
+                column: "HospitalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Hospitals");
-
             migrationBuilder.DropTable(
                 name: "LogSearches");
 
@@ -357,10 +384,13 @@ namespace CardinalProject.Migrations
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Hospitals");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
         }
     }
 }

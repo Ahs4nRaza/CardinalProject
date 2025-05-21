@@ -7,7 +7,6 @@ namespace CardinalProject.Controllers
     public class HomeController : Controller
     {
 
-        [HttpGet]
         [Authorize]
         public IActionResult Index()
         {

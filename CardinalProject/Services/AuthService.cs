@@ -14,7 +14,7 @@ namespace CardinalProject.Services
 
         public async Task<User?> ValidateUserCredentialsAsync(string email, string password)
         {
-            var user = await _userRepository.GetUserByEmailAsync(email);
+            var user = await _userRepository.GetUserEntityByEmailAsync(email);
             if (user == null || !user.IsActive) return null;
 
             bool valid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);

@@ -15,5 +15,9 @@
         public string CreatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
+
+        // to get names for hospital and role later
+        public Hospital? Hospital { get; set; }
+        public UserRole? Role { get; set; }
     }
 }
