@@ -13,4 +13,5 @@ public interface IUserRepository
     Task AddUserAsync(User user);
     Task UpdateUserAsync(User user);
     Task DeleteUserAsync(int userId);
+    Task DeactivateUsersWhenHospitalDeletedAsync(int hospitalId, string updatedBy);
 }

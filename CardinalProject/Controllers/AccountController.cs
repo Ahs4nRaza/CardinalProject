@@ -23,14 +23,21 @@ namespace CardinalProject.Controllers
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                ModelState.AddModelError("", "Invalid credentials.");
+                ModelState.AddModelError("", "Please enter both email and password.");
                 return View();
             }
 
             var user = await _authService.ValidateUserCredentialsAsync(email, password);
+
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid credentials.");
+                ModelState.AddModelError("", "Invalid email or password.");
+                return View();
+            }
+
+            if (!user.IsActive)
+            {
+                ModelState.AddModelError("", "Your account is inactive. Please contact the administrator.");
                 return View();
             }
 

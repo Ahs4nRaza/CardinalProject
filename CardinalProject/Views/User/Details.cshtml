@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "User Details";
+    var currentUserId = (int)(ViewData["CurrentUserId"] ?? 0);
 }
 
 <h2>User Details</h2>
@@ -33,6 +34,20 @@
         </dl>
 
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-        <a asp-action="EditUser" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+
+        @if (Model.Id != currentUserId)
+        {
+            <a asp-action="EditUser" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Edit</a>
+            <a asp-action="ConfirmDeleteUser" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Delete</a>
+        }
+        else
+        {
+            <span title="You can't edit your own account.">
+                <button type="button" class="btn btn-sm btn-primary me-1" disabled>Edit</button>
+            </span>
+            <span title="You can't delete your own account.">
+                <button type="button" class="btn btn-sm btn-danger" disabled>Delete</button>
+            </span>
+        }
     </div>
 </div>

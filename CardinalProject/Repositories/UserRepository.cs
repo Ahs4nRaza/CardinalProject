@@ -16,7 +16,6 @@ namespace CardinalProject.Repositories
         public async Task<User?> GetUserEntityByEmailAsync(string email)
         {
             return await _context.Users
-                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
         public async Task<User?> GetUserEntityByIdAsync(int userId)
@@ -28,7 +27,6 @@ namespace CardinalProject.Repositories
             var user = await _context.Users
                 .Include(u => u.Hospital)
                 .Include(u => u.Role)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null) return null;
@@ -41,7 +39,6 @@ namespace CardinalProject.Repositories
             var users = await _context.Users
                 .Include(u => u.Hospital)
                 .Include(u => u.Role)
-                .AsNoTracking()
                 .ToListAsync();
 
             return users.Select(u => MapToViewModel(u));
@@ -53,7 +50,6 @@ namespace CardinalProject.Repositories
                 .Where(u => u.HospitalId == hospitalId)
                 .Include(u => u.Hospital)
                 .Include(u => u.Role)
-                .AsNoTracking()
                 .ToListAsync();
 
             return users.Select(u => MapToViewModel(u));
@@ -65,7 +61,6 @@ namespace CardinalProject.Repositories
                 .Where(u => u.HospitalId == hospitalId && u.RoleId != 3)
                 .Include(u => u.Hospital)
                 .Include(u => u.Role)
-                .AsNoTracking()
                 .ToListAsync();
 
             return users.Select(u => MapToViewModel(u));
@@ -104,6 +99,20 @@ namespace CardinalProject.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task DeactivateUsersWhenHospitalDeletedAsync(int hospitalId, string updatedBy)
+        {
+            var users = await _context.Users.Where(u => u.HospitalId == hospitalId && u.IsActive).ToListAsync();
+
+            foreach (var user in users)
+            {
+                user.IsActive = false;
+                user.UpdatedAt = DateTime.UtcNow;
+                user.UpdatedBy = updatedBy;
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
 
         // Helper method to map User to UserViewModel
         private static UserViewModel MapToViewModel(User user)

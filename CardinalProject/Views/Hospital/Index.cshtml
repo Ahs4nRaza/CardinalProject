@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CardinalProject.ViewModels.HospitalViewModel>
+
+
+@{
+    ViewData["Title"] = "Hospitals";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New Hospital</a>
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Is Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hospital in Model)
+        {
+            <tr>
+                <td>@hospital.Name</td>
+                <td>@hospital.PhoneNumber</td>
+                <td>
+                    @if (hospital.IsActive)
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Inactive</span>
+                    }
+                </td>
+              
+                <td>
+                    <a asp-action="Details" asp-route-id="@hospital.Id" class="btn btn-info btn-sm me-1">Details</a>
+                    <a asp-action="Edit" asp-route-id="@hospital.Id" class="btn btn-primary btn-sm me-1">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@hospital.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

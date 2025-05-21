@@ -34,6 +34,13 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                                 </li>
                             }
+                            @* Show Users tab only if role is Superadmin (4)*@
+                            @if (roleId == 4)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Hospital" asp-action="Index">Hospital</a>
+                                </li>
+                            }
                         </ul>
 
                         <div class="d-flex align-items-center">

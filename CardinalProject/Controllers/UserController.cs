@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CardinalProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "2,3,4")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -47,6 +47,9 @@ namespace CardinalProject.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null) return NotFound();
+
+            var currentUserId = User.GetUserId(); 
+            ViewData["CurrentUserId"] = currentUserId;
 
             return View("Details", user);
         }
