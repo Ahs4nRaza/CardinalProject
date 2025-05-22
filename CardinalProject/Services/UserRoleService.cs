@@ -1,8 +1,5 @@
 ﻿using CardinalProject.Models;
 using CardinalProject.Repositories;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
 
 namespace CardinalProject.Services
 {

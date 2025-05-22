@@ -13,6 +13,7 @@
         public DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
 
-
+        public ServiceProvider ServiceProvider { get; set; }
+        public Service Service { get; set; }
     }
 }

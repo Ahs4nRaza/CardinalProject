@@ -38,9 +38,16 @@
                             @if (roleId == 4)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Hospital" asp-action="Index">Hospital</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Hospital" asp-action="Index">Hospitals</a>
                                 </li>
                             }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Index">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ServiceProvider" asp-action="Index">Service Providers</a>
+                            </li>
+                            
                         </ul>
 
                         <div class="d-flex align-items-center">

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CardinalProject.ViewModels.ServiceViewModel>
+@using CardinalProject.Helpers
+
+@{
+    ViewData["Title"] = "Services";
+    int userRole = User.GetRoleId(); 
+}
+
+<h2>Services</h2>
+
+@if (userRole == 4)
+{
+    <a class="btn btn-primary mb-3" asp-action="Create">Create New Service</a>
+}
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            @if (userRole == 4)
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model)
+        {
+            <tr>
+                <td>@(string.IsNullOrWhiteSpace(service.Name) ? "-" : service.Name)</td>
+                <td>@(string.IsNullOrWhiteSpace(service.Description) ? "-" : service.Description)</td>
+                @if (userRole == 4)
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-sm btn-primary me-1">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@service.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

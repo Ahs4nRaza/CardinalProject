@@ -37,11 +37,13 @@ namespace CardinalProject
             builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserRoleService, UserRoleService>();
             builder.Services.AddScoped<IHospitalService, HospitalService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IServiceService, ServiceService>();
 
             // Add controllers with views support
             builder.Services.AddControllersWithViews();

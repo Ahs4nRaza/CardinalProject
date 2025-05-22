@@ -1,5 +1,4 @@
 ﻿using CardinalProject.Models;
-using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace CardinalProject.Helpers
@@ -44,5 +43,11 @@ namespace CardinalProject.Helpers
         {
             return user.FindFirst("Department")?.Value ?? string.Empty;
         }
+
+        public static string GetUserName(this ClaimsPrincipal user)
+        {
+            return user.FindFirst(ClaimTypes.Name)?.Value ?? "UnknownUser";
+        }
+
     }
 }
