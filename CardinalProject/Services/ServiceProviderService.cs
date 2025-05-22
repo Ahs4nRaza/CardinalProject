@@ -22,14 +22,7 @@ namespace CardinalProject.Services
                 PostCode = sp.PostCode,
                 Website = sp.Website,
                 PhoneNumber = sp.PhoneNumber,
-                IsActive = sp.IsActive,
-                Services = sp.Services?
-                    .Select(s => new ServiceViewModel
-                    {
-                        Id = s.Service.Id,
-                        Name = s.Service.Name,
-                        Description = s.Service.Description
-                    }).ToList() ?? new List<ServiceViewModel>()
+                IsActive = sp.IsActive
             };
         }
 
@@ -46,7 +39,6 @@ namespace CardinalProject.Services
             };
         }
 
-    
         private string NormalizeUrl(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
@@ -91,7 +83,7 @@ namespace CardinalProject.Services
 
             sp.Name = model.Name;
             sp.PostCode = model.PostCode;
-            sp.Website = NormalizeUrl(model.Website); 
+            sp.Website = NormalizeUrl(model.Website);
             sp.PhoneNumber = model.PhoneNumber;
             sp.IsActive = model.IsActive;
             sp.UpdatedAt = DateTime.UtcNow;

@@ -8,7 +8,7 @@
         public string Website { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsActive { get; set; }
-        public List<ServiceViewModel> Services { get; set; } = new List<ServiceViewModel>();
+     
         
     }
 }

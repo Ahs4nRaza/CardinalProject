@@ -14,17 +14,13 @@ namespace CardinalProject.Repositories
 
         public async Task<IEnumerable<Models.ServiceProvider>> GetAllServiceProvidersAsync()
         {
-            return await _context.ServiceProviders
-                .Include(sp => sp.Services)
-                    .ThenInclude(sps => sps.Service)
-                .ToListAsync();
+           
+            return await _context.ServiceProviders.ToListAsync();
         }
 
         public async Task<Models.ServiceProvider?> GetServiceProviderByIdAsync(int id)
         {
             return await _context.ServiceProviders
-                .Include(sp => sp.Services)
-                    .ThenInclude(sps => sps.Service)
                 .FirstOrDefaultAsync(sp => sp.Id == id);
         }
 

@@ -21,7 +21,6 @@
             <th>Website</th>
             <th>Phone Number</th>
             <th>Is Active</th>
-            <th>Services</th>
             @if (userRole == 3 || userRole == 4 || userRole == 2)
             {
                 <th>Actions</th>
@@ -45,22 +44,17 @@
                     }
                 </td>
                 <td>@(string.IsNullOrWhiteSpace(sp.PhoneNumber) ? "-" : sp.PhoneNumber)</td>
-                <td>@(sp.IsActive ? "Yes" : "No")</td>
                 <td>
-                    @if (sp.Services != null && sp.Services.Any())
+                    @if (sp.IsActive)
                     {
-                        <ul class="mb-0">
-                            @foreach (var service in sp.Services)
-                            {
-                                <li>@service.Name</li>
-                            }
-                        </ul>
+                        <span class="badge bg-success">Active</span>
                     }
                     else
                     {
-                        <text>-</text>
+                        <span class="badge bg-danger">Inactive</span>
                     }
                 </td>
+                
                 @if (userRole == 3 || userRole == 4 || userRole == 2)
                 {
                     <td>
