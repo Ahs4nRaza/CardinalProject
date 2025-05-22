@@ -1,5 +1,82 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<CardinalProject.ViewModels.ServiceProviderViewModel>
+@using CardinalProject.Helpers
+
 @{
+    ViewData["Title"] = "Service Providers";
+    int userRole = User.GetRoleId();
 }
+
+<h2>Service Providers</h2>
+
+@if (userRole == 3 || userRole == 4)
+{
+    <a class="btn btn-primary mb-3" asp-action="Create">Create New Service Provider</a>
+}
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Post Code</th>
+            <th>Website</th>
+            <th>Phone Number</th>
+            <th>Is Active</th>
+            <th>Services</th>
+            @if (userRole == 3 || userRole == 4 || userRole == 2)
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sp in Model)
+        {
+            <tr>
+                <td>@(string.IsNullOrWhiteSpace(sp.Name) ? "-" : sp.Name)</td>
+                <td>@(string.IsNullOrWhiteSpace(sp.PostCode) ? "-" : sp.PostCode)</td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(sp.Website))
+                    {
+                        <a href="@sp.Website" target="_blank">@sp.Website</a>
+                    }
+                    else
+                    {
+                        <text>-</text>
+                    }
+                </td>
+                <td>@(string.IsNullOrWhiteSpace(sp.PhoneNumber) ? "-" : sp.PhoneNumber)</td>
+                <td>@(sp.IsActive ? "Yes" : "No")</td>
+                <td>
+                    @if (sp.Services != null && sp.Services.Any())
+                    {
+                        <ul class="mb-0">
+                            @foreach (var service in sp.Services)
+                            {
+                                <li>@service.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <text>-</text>
+                    }
+                </td>
+                @if (userRole == 3 || userRole == 4 || userRole == 2)
+                {
+                    <td>
+                        
+                        @if (userRole == 2 || userRole == 3 || userRole == 4)
+                        {
+                            <a asp-action="Edit" asp-route-id="@sp.Id" class="btn btn-sm btn-primary me-1">Edit</a>
+                        }
+                        
+                        @if (userRole == 3 || userRole == 4)
+                        {
+                            <a asp-action="Delete" asp-route-id="@sp.Id" class="btn btn-sm btn-danger">Delete</a>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
