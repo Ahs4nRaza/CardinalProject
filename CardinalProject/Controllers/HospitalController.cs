@@ -1,4 +1,5 @@
-﻿using CardinalProject.Services;
+﻿using CardinalProject.Helpers;
+using CardinalProject.Services;
 using CardinalProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +42,8 @@ namespace CardinalProject.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            await _hospitalService.AddHospitalAsync(model, User.Identity.Name);
+            string name = User.GetUserName();
+            await _hospitalService.AddHospitalAsync(model, name);
             return RedirectToAction(nameof(Index));
         }
 
@@ -63,7 +65,8 @@ namespace CardinalProject.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            await _hospitalService.UpdateHospitalAsync(model, User.Identity.Name);
+            string name = User.GetUserName();
+            await _hospitalService.UpdateHospitalAsync(model, name);
             return RedirectToAction(nameof(Index));
         }
 
@@ -79,7 +82,8 @@ namespace CardinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _hospitalService.DeleteHospitalAsync(id, User.Identity.Name);
+            string name = User.GetUserName();
+            await _hospitalService.DeleteHospitalAsync(id, name);
             return RedirectToAction(nameof(Index));
         }
     }

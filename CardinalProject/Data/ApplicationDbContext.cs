@@ -57,7 +57,7 @@ namespace CardinalProject.Data
                 {
                     Id = 1,
                     Name = "St. Mary’s Hospital",
-                    PhoneNumber = "111-222-3333",
+                    PhoneNumber = "111222333",
                     IsActive = true,
                     CreatedAt = DateTime.Parse(todayString),
                     CreatedBy = "System",

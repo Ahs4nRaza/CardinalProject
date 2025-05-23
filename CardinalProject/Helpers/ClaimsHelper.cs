@@ -34,9 +34,8 @@ namespace CardinalProject.Helpers
         public static int? GetHospitalId(this ClaimsPrincipal user)
         {
             var hospitalClaim = user.FindFirst("HospitalId");
-            if (hospitalClaim != null && int.TryParse(hospitalClaim.Value, out var hospitalId))
-                return hospitalId;
-            return null;
+            return hospitalClaim != null && int.TryParse(hospitalClaim.Value, out var hospitalId) ? hospitalId : null;
+               
         }
 
         public static string GetDepartment(this ClaimsPrincipal user)
